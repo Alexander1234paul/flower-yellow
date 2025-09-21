@@ -17,9 +17,24 @@ body {
   align-items: flex-end;
   justify-content: center;
   min-height: 100vh;
-  background-color: var(--dark-color);
+  background: radial-gradient(circle at bottom, #001a00, #000 80%);
   overflow: hidden;
   perspective: 1000px;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  opacity: 0.2;
+  animation: starsMove 200s linear infinite;
+}
+
+@keyframes starsMove {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-1000px); }
 }
 
 .night {
@@ -373,14 +388,17 @@ body {
   width: 23vmin;
   height: 6vmin;
   border-radius: 60% 40% 60% 40%;
-  background-color: #ffd700;
-  background-image: linear-gradient(to top, #ff8c00, #ffd700, #ffff00);
+  background: radial-gradient(circle at 30% 30%, #fff59d, #fbc02d);
+  transform: translate(-50%, -10%) rotate(var(--angle));
   transform-origin: bottom center;
   opacity: 0.95;
-  box-shadow: inset 0 0 1vmin rgba(255, 255, 255, 0.7), 
-              0 0 3vmin rgba(255, 215, 0, 0.4);
-  z-index: 2;
+  box-shadow: 
+    0 0 15px rgba(255, 235, 59, 0.7),
+    inset 0 0 5px rgba(255, 255, 255, 0.5);
+  animation: petal-breathe 4s ease-in-out infinite alternate;
 }
+
+
 
 .flower__leaf--1 {
   transform: translate(-50%, -10%) rotate(-45deg);
@@ -405,11 +423,18 @@ body {
   width: 10vmin;
   height: 10vmin;
   border-radius: 50%;
-  background-color: #8b4513;
-  background-image: radial-gradient(circle at 30% 30%, #654321, #8b4513, #2f1b14);
-  box-shadow: inset 0 0 2vmin rgba(0, 0, 0, 0.8),
-              0 0 1vmin rgba(139, 69, 19, 0.6);
+  background: radial-gradient(circle at 30% 30%, #4e342e, #3e2723, #212121);
+  box-shadow:
+    inset 0 0 10px rgba(0,0,0,0.8),
+    0 0 25px rgba(255, 193, 7, 0.4);
+  animation: centerGlow 5s ease-in-out infinite alternate;
 }
+
+@keyframes centerGlow {
+  0% { box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 0 15px rgba(255, 193, 7, 0.2); }
+  100% { box-shadow: inset 0 0 6px rgba(0,0,0,0.6), 0 0 35px rgba(255, 215, 0, 0.6); }
+}
+
 
 .flower__white-circle::after {
   content: "";
@@ -928,3 +953,54 @@ body {
   0%, 100% { transform: scale(0.35) rotate(-45deg) rotateY(-120deg); }
   50% { transform: scale(0.35) rotate(-42deg) rotateY(-115deg); }
 }
+
+
+.fireflies {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.firefly {
+  position: absolute;
+  background: radial-gradient(circle, #ffff99 20%, rgba(255,255,102,0.2) 70%, transparent 100%);
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  opacity: 0;
+  animation: fly 12s linear infinite, glow 2s ease-in-out infinite alternate;
+}
+
+/* Movimiento aleatorio */
+@keyframes fly {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 1; }
+  25%  { transform: translate(120px, -100px); }
+  50%  { transform: translate(-150px, -150px); }
+  75%  { transform: translate(100px, 80px); }
+  90%  { opacity: 1; }
+  100% { transform: translate(-120px, 100px); opacity: 0; }
+}
+
+/* Brillo intermitente */
+@keyframes glow {
+  0%   { box-shadow: 0 0 5px 2px rgba(255, 255, 102, 0.6); }
+  100% { box-shadow: 0 0 20px 8px rgba(255, 255, 102, 1); }
+}
+
+/* Variación entre luciérnagas */
+.firefly:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s, 1s; }
+.firefly:nth-child(2) { top: 40%; left: 30%; animation-delay: 2s, 0.5s; }
+.firefly:nth-child(3) { top: 60%; left: 50%; animation-delay: 4s, 1.5s; }
+.firefly:nth-child(4) { top: 80%; left: 70%; animation-delay: 6s, 2s; }
+.firefly:nth-child(5) { top: 30%; left: 80%; animation-delay: 8s, 1s; }
+.firefly:nth-child(6) { top: 50%; left: 20%; animation-delay: 10s, 2.5s; }
+.firefly:nth-child(7) { top: 70%; left: 40%; animation-delay: 12s, 0.7s; }
+.firefly:nth-child(8) { top: 90%; left: 60%; animation-delay: 14s, 1.2s; }
+
+

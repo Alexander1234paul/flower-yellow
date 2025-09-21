@@ -8,16 +8,12 @@ window.onload = () => {
   }
 
   // 🌱 Crear 10 pastos
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 20; i++) {
     flowersContainer.appendChild(GrassFactory.createGrass(i));
   }
 
   // 🌠 Crear estrellas fugaces aleatorias
-  function spawnStar() {
-    const star = StarFactory.createStar();
-    starsContainer.appendChild(star);
-    setTimeout(() => star.remove(), 4000);
-  }
+
 
   setInterval(() => {
     if (Math.random() > 0.3) spawnStar();
